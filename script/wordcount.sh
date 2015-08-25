@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#hd_input=$1
+#hd_output=$2
+
+/usr/bin/spark-submit \
+  --conf "spark.eventLog.enabled=true" \
+  --conf "spark.storage.memoryFraction=0.4" \
+  --conf "spark.shuffle.consolidateFiles=true" \
+  --conf "spark.serializer=org.apache.spark.serializer.KryoSerializer" \
+  --conf "spark.ui.port=50001" \
+  --master spark://hadoop1:50000 \
+  --deploy-mode "client" \
+  --name "train NB" \
+  --driver-memory 1g \
+  --executor-memory 512m \
+  --total-executor-cores 2 \
+  --class com.uc.bigdata.lab.exercise.SampleFormat \
+  lab-spark_2.10-2.0.0.jar 
+  #--master= \
+  #--input=${hd_input} \
+  #--output=${hd_output}
+  #"/user/zengmx/FeatureOutput/00001/part-r-00000" "/user/zengmx/test/00001"
+
